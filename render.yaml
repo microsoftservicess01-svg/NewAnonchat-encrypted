@@ -4,13 +4,13 @@ services:
     env: docker
     plan: free
     region: oregon
-    dockerContext: ./backend
+    rootDir: backend
     dockerfilePath: ./backend/Dockerfile
     envVars:
       - key: PORT
         value: 10000
       - key: DB_KEY
-        value: YOUR_STRONG_DB_KEY_HERE
+        sync: false # set manually in Render dashboard for security
     autoDeploy: true
 
   - type: web
@@ -18,7 +18,7 @@ services:
     env: docker
     plan: free
     region: oregon
-    dockerContext: ./frontend
+    rootDir: frontend
     dockerfilePath: ./frontend/Dockerfile
     envVars:
       - key: VITE_API_URL
@@ -26,3 +26,4 @@ services:
       - key: VITE_SIGNALING_URL
         value: https://anonchat-backend.onrender.com
     autoDeploy: true
+    
