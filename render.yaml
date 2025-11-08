@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: anonchat-backend
+    env: docker
+    plan: free
+    region: oregon
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DB_KEY
+        value: YOUR_STRONG_DB_KEY_HERE
+    autoDeploy: true
+
+  - type: web
+    name: anonchat-frontend
+    env: docker
+    plan: free
+    region: oregon
+    dockerContext: ./frontend
+    dockerfilePath: ./frontend/Dockerfile
+    envVars:
+      - key: VITE_API_URL
+        value: https://anonchat-backend.onrender.com
+      - key: VITE_SIGNALING_URL
+        value: https://anonchat-backend.onrender.com
+    autoDeploy: true
